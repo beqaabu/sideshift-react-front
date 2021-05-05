@@ -16,9 +16,12 @@ class Address extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>        <label>
-          Address:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />        </label>
+      <form onSubmit={this.handleSubmit}>        
+        <label>Address:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <p>Your Address is: {this.state.value}</p>        
+        </label>
+        
         <input type="submit" value="Submit" />
       </form>
     );

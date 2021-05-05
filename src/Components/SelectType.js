@@ -1,4 +1,5 @@
 import React from 'react';
+let x = '';
 
 class SelectType extends React.Component{
     constructor(props){
@@ -22,7 +23,7 @@ class SelectType extends React.Component{
                     <option value="fixed">Fixed</option>
                     <option value="variable">Variable</option>
                 </select>
-                <p>{this.state.value}</p>
+                {x = this.state.value}
             </div>
         )
     }

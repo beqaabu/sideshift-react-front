@@ -6,7 +6,7 @@ import SelectType from './Components/SelectType';
 function App() {
   return (
     <div className="App">
-      <SelectType /> 
+      <SelectType />
       <SelectCoins />
       <SelectCoins />
       <Address />
