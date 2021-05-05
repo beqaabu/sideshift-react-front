@@ -15,6 +15,7 @@ class SelectCoins extends React.Component {
 
     handleChange(event){
         this.setState({value: event.target.value})
+
     }
     componentDidMount() {
         fetch("https://sideshift.ai/api/v1/facts")

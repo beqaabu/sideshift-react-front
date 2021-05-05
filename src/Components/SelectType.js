@@ -11,6 +11,7 @@ class SelectType extends React.Component{
 
     handleChange(event){
         this.setState({value: event.target.value});
+        //type = event.target.value;
     }
 
     render(){
