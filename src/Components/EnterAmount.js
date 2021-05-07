@@ -6,12 +6,23 @@ class EnterAmount extends React.Component {
     this.state = {value: ''};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateAmount = props.updateAmount;
   }
 
-  handleChange(event) { this.setState({value: event.target.value});  }
+  handleChange(event) { 
+    this.setState({value: event.target.value});  
+    this.updateAmount({...event});
+  }
+
   handleSubmit(event) {
-      alert('Deposit Amount ' + this.state.value);
+      alert('Quote Posted for Given Amount: ' + this.state.value);
+      this.updateAmount()
       event.preventDefault();
+
+  }
+
+  updateAmount(event){
+    this.setState({value: event.target.value});
   }
 
   render() {
