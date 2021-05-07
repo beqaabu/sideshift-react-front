@@ -1,5 +1,6 @@
 import React from 'react';
 const fetch = require('node-fetch');
+let s = '';
 
 class SelectCoins extends React.Component {
     constructor(props) {
@@ -15,28 +16,32 @@ class SelectCoins extends React.Component {
 
     handleChange(event){
         this.setState({value: event.target.value})
-
+        s += event.target.value;
+        s += '/';
+        //alert(s);
+        console.log(s);
     }
+
     componentDidMount() {
         fetch("https://sideshift.ai/api/v1/facts")
         .then(res => res.json())
         .then(
             (result) => {
-                let assets = [];
-                for(let key in result.assets){
-                    assets.push(result.assets[key]);
+                    let assets = [];
+                    for(let key in result.assets){
+                        assets.push(result.assets[key]);
+                    }
+                    this.setState({
+                        isLoaded: true,
+                        items: assets
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
                 }
-            this.setState({
-                isLoaded: true,
-                items: assets
-            });
-            },
-            (error) => {
-            this.setState({
-                isLoaded: true,
-                error
-            });
-            }
         )
     }
 
@@ -53,8 +58,10 @@ class SelectCoins extends React.Component {
                         {items.map(coin => (
                             <option key = {coin.id} value = {coin.id}>{coin.name}/{coin.id}</option>
                         ))}
+                        
                     </select>
                     <p>{this.state.value}</p>
+                    
                 </div>
             );
         }

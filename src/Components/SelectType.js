@@ -33,8 +33,6 @@ class SelectType extends React.Component{
                         <option value="fixed">Fixed</option>
                         <option value="variable">Variable</option>
                     </select>
-                    <p>{TypeSelection(this)}</p>
-
                     
                 </div>
             )
