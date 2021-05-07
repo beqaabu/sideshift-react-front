@@ -1,6 +1,5 @@
 import React from 'react';
 const fetch = require('node-fetch');
-let s = '';
 
 class SelectCoins extends React.Component {
     constructor(props) {
@@ -9,17 +8,15 @@ class SelectCoins extends React.Component {
         error: null,
         isLoaded: false,
         items: [],
-        value: ''
+        value: '',
         };
         this.handleChange = this.handleChange.bind(this);
+        this.updatePair = props.updatePair;
     }
 
     handleChange(event){
-        this.setState({value: event.target.value})
-        s += event.target.value;
-        s += '/';
-        //alert(s);
-        console.log(s);
+        this.setState({value: event.target.value});
+        this.updatePair({...event});
     }
 
     componentDidMount() {
@@ -27,21 +24,21 @@ class SelectCoins extends React.Component {
         .then(res => res.json())
         .then(
             (result) => {
-                    let assets = [];
-                    for(let key in result.assets){
-                        assets.push(result.assets[key]);
-                    }
-                    this.setState({
-                        isLoaded: true,
-                        items: assets
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
+                let assets = [];
+                for(let key in result.assets){
+                    assets.push(result.assets[key]);
                 }
+            this.setState({
+                isLoaded: true,
+                items: assets
+            });
+            },
+            (error) => {
+            this.setState({
+                isLoaded: true,
+                error
+            });
+            }
         )
     }
 
@@ -53,19 +50,25 @@ class SelectCoins extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <div className="App"> 
-                    <select value={this.state.value} onChange={this.handleChange}>
-                        {items.map(coin => (
-                            <option key = {coin.id} value = {coin.id}>{coin.name}/{coin.id}</option>
-                        ))}
-                        
-                    </select>
-                    <p>{this.state.value}</p>
-                    
-                </div>
+                <form onSubmit = {this.handleSubmit}>
+                    <div className="App"> 
+                        <select value={this.state.value} onChange={this.handleChange}>
+                            {items.map(coin => (
+                                <option key = {coin.id} value = {coin.id.toLowerCase()}>{coin.name}/{coin.id}</option>
+                            ))}
+                        </select>
+                        <p>{this.state.value}</p>
+                    </div>
+                </form>
             );
         }
     }
 }
 
 export default SelectCoins;
+
+
+/*
+fixed -> quote {in, out, deposit} -> create order {type, quoteId, settleAddress}
+variable -> create order {type, in, out, settleAddress, affiliateId, sessionSecret}
+*/
